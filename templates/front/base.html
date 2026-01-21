@@ -8,17 +8,33 @@
     <link rel="stylesheet" type="text/css" href="static\style.css">
     <script defer src="static\script.js"></script>
 </head>
-<body>
+<body class="bg-[#50D4C7]">
     <header>
+        <section class="bg-gradient-to-bl from-[#F4FC5F] to-[#5FFCB5] text-center">
+            <div>
+                <h1 class="font-bold py-5 text-3xl">Nulla cursus</h1>
+            </div>
+            <div class="text-center">
+                {% if session["user"] %}
+                    <button class="rounded-lg px-3 py-1 text-white font-semibold mb-3 mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" type="submit">Se connecter</button>
+                    <button class="rounded-lg px-3 py-1 text-white font-semibold mb-3 mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" type="submit">S'enregistrer</button>
+                {% else %}
+                    <button class="rounded-lg px-3 py-1 text-white font-semibold mb-3 mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" type="submit">JOUER !</button>
+                    <button class="rounded-lg px-3 py-1 text-white font-semibold mb-3 mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" type="submit">Se déconnecter</button>
+                    <button class="rounded-lg px-3 py-1 text-white font-semibold mb-3 mx-2 bg-gradient-to-t from-[#C40D03] to-[#FC0370]" type="submit">Page administrateur</button>
+                {% endif %}
+            </div>
 
+        </section>
+        
     </header>
 
     {% block content%}
     {% endblock %}
 
-
+    
     <footer>
-        
+
     </footer>
 </body>
 </html>
