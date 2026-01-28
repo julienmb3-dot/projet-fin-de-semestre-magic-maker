@@ -1,0 +1,30 @@
+{% extends "front/base.html" %}
+{% block content %}
+
+<main class="scrollbar-hide">
+    <!-- page d'acueil -->
+    <div class="text-center my-3">
+        <h2 class="text-3xl text-[#F4FC5F] font-bold drop-shadow-md/20">TABLEAUX DES SCRORES</h2>
+    </div>
+   
+    <section class="mt-4 flex items-stretch break-all text-center">
+
+        <div class="bg-[#675FFC] mx-2 w-1/2 text-center text-wrap rounded-lg drop-shadow-md/50">
+            <h3 class="text-xxl text-white font-semibold">TEMPS DE JEUX</h3>
+            <br>
+            <!-- BOUCLE FOR avec la base de donnée-->
+            <div class="flex items-stretch">
+                <p>nom</p>
+                <p>temps</p>
+            </div>
+
+        </div>
+
+        <div class="bg-[#675FFC] mx-2 w-1/2 text-center text-wrap rounded-lg drop-shadow-md/50">
+            
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}
