@@ -1,8 +1,28 @@
 {% extends "front/base.html" %}
 {% block content %}
 
-    <main class="justify-center">
-        <div class="p-4 bg-[#000000] "><p>a</p></div>
+    <main class="flex justify-center">
+        <section>
+            <div class="flex items-center justify-center grid grid-cols-1 bg-gradient-to-t from-[#F4FC5F] to-[#BBB5FC] outline-4 outline-[#FFFFFF] outline-dashed rounded-xl mt-10">
+                
+                <p class="font-bold text-[#675FFC] px-4 mt-3 mb-5 text-center text-2xl">Se connecter</p>
+                
+                <div class="flex flex-row items-center justify-center mb-5">
+                    <p class="font-bold text-[#675FFC] pl-4 pr-1 text-center">Nom d'utilisateur :</p>
+                    <input class="rounded-lg flex p-2 mr-4 bg-[#5FFCB5] text-[#6D60FB]" name="user_id" type="text" placeholder="Nom d'utilisateur...">
+                </div>
+
+                <div class="flex flex-row items-center justify-center mb-5">
+                    <p class="font-bold text-[#675FFC] pl-4 pr-1 text-center">Mot de passe :</p>
+                    <input class="rounded-lg flex p-2 mr-4 bg-[#5FFCB5] text-[#6D60FB]" name="user_id" type="text" placeholder="Mot de passe...">
+                </div>
+
+                <div class="flex mt-4">
+                    <button class="flex justify-self-center-safe rounded-lg px-2 py-1" type="submit">Se connecter</button>
+                </div>
+            </div>
+        </section>
+        
     </main>
 
 {% endblock %}
