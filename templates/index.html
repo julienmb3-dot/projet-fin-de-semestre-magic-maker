@@ -1,30 +1,43 @@
 {% extends "front/base.html" %}
 {% block content %}
 
-<main class="scrollbar-hide">
-    <!-- page d'acueil -->
-    <div class="text-center my-3">
-        <h2 class="text-3xl text-[#F4FC5F] font-bold drop-shadow-md/20">TABLEAUX DES SCRORES</h2>
-    </div>
-   
-    <section class="mt-4 flex items-stretch break-all text-center">
+    <main class="scrollbar-hide">
+        <!-- page d'acueil -->
+        <div class="text-center my-3">
+            <h2 class="text-3xl text-[#F4FC5F] font-bold drop-shadow-md/20">TABLEAUX DES SCRORES</h2>
+        </div>
+    
+        <section class="mt-4 flex items-stretch break-all text-center">
 
-        <div class="bg-[#675FFC] mx-2 w-1/2 text-center text-wrap rounded-lg drop-shadow-md/50">
-            <h3 class="text-xxl text-white font-semibold">TEMPS DE JEUX</h3>
-            <br>
-            <!-- BOUCLE FOR avec la base de donnée-->
-            <div class="flex items-stretch">
-                <p>nom</p>
-                <p>temps</p>
+            <div class="bg-[#675FFC] mx-2 w-1/2 text-center text-wrap rounded-lg drop-shadow-md/50">
+                <p class="pb-2"></p>
+                <h3 class="text-xxl text-white font-semibold">TEMPS DE JEUX</h3>
+                <p class="pb-3"></p>
+                
+                {% for data in data %}
+                    <div class="flex items-stretch bg-[#BBB5FC] mx-1 my-2 rounded-lg">
+                        <p class="ml-2 mx-2" >{{data["user"]}}</p> 
+                        
+                        <p class="mx-2 font-semibold">{{data["time_played"]}}</p> 
+                    </div>
+                {% endfor %}
             </div>
 
-        </div>
+            <div class="bg-[#675FFC] mx-2 w-1/2 text-center text-wrap rounded-lg drop-shadow-md/50">
+                <p class="pb-2"></p>
+                <h3 class="text-xxl text-white font-semibold">SCORE</h3>
+                <p class="pb-3"></p>
+    
+                {% for data in data %}
+                    <div class="flex items-stretch bg-[#BBB5FC] mx-1 my-2 rounded-lg">
+                        <p class="ml-2 mx-2" >{{data["user"]}}</p> 
+                        
+                        <p class="mx-2 font-semibold">{{data["score"]}}</p> 
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
 
-        <div class="bg-[#675FFC] mx-2 w-1/2 text-center text-wrap rounded-lg drop-shadow-md/50">
-            
-        </div>
-    </section>
-
-</main>
+    </main>
 
 {% endblock %}
