@@ -1,25 +1,33 @@
 {% extends "front/base.html" %}
 {% block content %}
 
+    {% if erreur %}
+        <p class="font-bold text-[#205B83] flex justify-center mt-3">{{erreur}}</p>
+    {% endif %}
     <main class="flex justify-center">
+        
         <section>
             <div class="flex items-center justify-center grid grid-cols-1 bg-gradient-to-t from-[#F4FC5F] to-[#BBB5FC] outline-4 outline-[#FFFFFF] outline-dashed rounded-xl mt-10">
                 
                 <p class="font-bold text-[#675FFC] px-4 mt-3 mb-5 text-center text-2xl">Se connecter</p>
-                
-                <div class="flex flex-row items-center justify-center mb-5">
-                    <p class="font-bold text-[#675FFC] pl-4 pr-1 text-center">Nom d'utilisateur :</p>
-                    <input class="rounded-lg flex p-2 mr-4 bg-[#5FFCB5] text-[#6D60FB]" name="user_id" type="text" placeholder="Nom d'utilisateur...">
-                </div>
 
-                <div class="flex flex-row items-center justify-center mb-5">
-                    <p class="font-bold text-[#675FFC] pl-4 pr-1 text-center">Mot de passe :</p>
-                    <input class="rounded-lg flex p-2 mr-4 bg-[#5FFCB5] text-[#6D60FB]" name="user_id" type="text" placeholder="Mot de passe...">
-                </div>
+                <form method = "POST" action = "{{url_for('login')}}">
 
-                <div class="flex mt-4">
-                    <button class="flex justify-self-center-safe rounded-lg px-2 py-1" type="submit">Se connecter</button>
-                </div>
+                    <div class="flex flex-row items-center justify-center mb-5">
+                        <p class="font-bold text-[#675FFC] pl-4 pr-1 text-center">Identifiant :</p>
+                        <input class="rounded-lg flex p-2 mr-4 bg-[#5FFCB5] text-[#6D60FB]" name="user_id" type="text" placeholder="Ton nom c'est...">
+                    </div>
+
+                    <div class="flex flex-row items-center justify-center mb-5">
+                        <p class="font-bold text-[#675FFC] pl-4 pr-1 text-center">Mot de passe :</p>
+                        <input class="rounded-lg flex p-2 mr-4 bg-[#5FFCB5] text-[#6D60FB]" name="password" type="text" placeholder="Petite sécurité">
+                    </div>
+
+                    <div class="flex mt-4 justify-center-safe mb-3">
+                        <button class="flex rounded-lg py-1 px-3 text-white font-semibold mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" id="login" type="submit">Je suis là 😄 !</button>
+                    </div>
+
+                </form>
             </div>
         </section>
         

@@ -10,6 +10,10 @@
 </head>
 <body class="bg-[#50D4C7]">
     <header>
+        {% if session["user"] %}
+            <p>connecter en tant que {{session["user"]}}</p>
+        {% endif %}
+        
         <section class="bg-gradient-to-bl from-[#F4FC5F] to-[#5FFCB5] text-center">
             <div>
                 <p class="pt-4"></p>
@@ -23,7 +27,7 @@
                     <p class="pb-3"></p>
                 {% else %}
                     <a href="/play" class="rounded-lg px-3 py-1 text-white font-semibold mb-3 mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" type="submit">JOUER !</a>
-                    <a href="/disconnect" class="rounded-lg px-3 py-1 text-white font-semibold mb-3 mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" type="submit">Se déconnecter</a>
+                    <a href="/logout" class="rounded-lg px-3 py-1 text-white font-semibold mb-3 mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" type="submit">Se déconnecter</a>
 
                     <a href="/admin" class="rounded-lg px-3 py-1 text-white font-semibold mb-3 mx-2 bg-gradient-to-t from-[#C40D03] to-[#FC0370]" type="submit">Page administrateur</a>
 
