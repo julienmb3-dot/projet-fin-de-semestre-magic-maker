@@ -44,11 +44,12 @@ def signup():
         if new_user:
             return render_template('signup.html', erreur="Ce nom d'utilisateur est déjà pris.")
         else:
-            if request.form["password"] == request.form["password_validation"]:
+            if request.form["password"] == request.form["password_confirmation"]:
                 if not(request.form["password"] == "" or request.form["user_id"] == ""):
                     db_users.insert_one({
                         "user_id" : request.form["user_id"],
-                        "password" : request.form["password"]
+                        "password" : request.form["password"],
+                        "role" : "guest"
                     })
                     session["user"] = request.form["user_id"]
                     return redirect(url_for("index"))

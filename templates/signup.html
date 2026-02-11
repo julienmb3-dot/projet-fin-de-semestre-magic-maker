@@ -9,7 +9,9 @@
             <div class="flex items-center justify-center grid grid-cols-1 bg-gradient-to-t from-[#F4FC5F] to-[#BBB5FC] outline-4 outline-[#FFFFFF] outline-dashed rounded-xl mt-10">
                 
                 <p class="font-bold text-[#675FFC] px-4 mt-3 mb-5 text-center text-2xl">S'enregistrer</p>
+
                 <form method = "POST" action = "{{url_for('signup')}}">
+                    
                     <div class="flex flex-row items-center justify-center mb-8">
                         <p class="font-bold text-[#675FFC] pl-4 pr-1 text-center">Identifiant :</p>
                         <input class="rounded-lg flex p-2 mr-4 bg-[#5FFCB5] text-[#6D60FB]" name="user_id" type="text" placeholder="Un nom pas trop génant">
@@ -28,7 +30,9 @@
                     <div class="flex mt-4 justify-center-safe mb-3">
                         <button class="flex rounded-lg py-1 px-3 text-white font-semibold mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" id="signup" type="submit">Bienvenue ☺️ !</button>
                     </div>
+
                 </form>
+
             </div>
         </section>
         
