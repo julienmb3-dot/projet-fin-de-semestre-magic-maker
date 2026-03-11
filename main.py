@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, session, redirect
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from werkzeug.utils import secure_filename
 
 import os
 
@@ -66,6 +67,31 @@ def signup():
     else:
         return render_template("signup.html")
 
+"""
+@app.route("/update_game", methods=["POST"])
+def update_game():
+    score = request.form["score"]
+    time = request.form["time"]
+    image = request.files()
+
+    if image:
+        nom_fichier = secure_filename()
+        upload_path = os.path.join(app.static_folder, "images/game_user", nom_fichier)
+        image.save(upload_path)
+
+        image_path = f"/static/images/game_user"
+        
+    else:
+        image_path = ""
+    
+    data = {
+        "score" = score
+        "time" = time
+        "image" = image
+    }
+    db["games_data"].insert_one(data)
+    return redirect(url_for("play"))
+"""
 @app.route("/logout")
 def logout():
     session.clear()
