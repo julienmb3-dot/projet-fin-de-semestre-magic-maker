@@ -24,15 +24,20 @@ def index():
 def login():
     if request.method == "POST":
         db_users = db["Users"]
-        user = db_users.find_one({"user_id" : request.form["user_id"]})
-        if user:
-            if request.form["password"] == user["password"]:
-                session["user"] = request.form["user_id"]
-                return redirect(url_for("index"))
+        if request.form["user_id"] != "":
+            user = db_users.find_one({"user_id" : request.form["user_id"]})
+            
+            if user:
+                if request.form["password"] == user["password"]:
+                    session["user"] = request.form["user_id"]
+                    session["role"] = "guest"
+                    return redirect(url_for("index"))
+                else:
+                    return render_template('login.html', erreur="On dirait que t'as un 🕳️ de mémoire...")
             else:
-                return render_template('login.html', erreur="On dirait que t'as un trou de mémoire 🕳️...")
+                return render_template('login.html', erreur="Je ne te connais pas, tu devrais t'enregistrer ! 😉")
         else:
-            return render_template('login.html', erreur="Je ne te connais pas 😖, tu devrais t'enregistrer 😉 !")
+            return render_template('login.html', erreur="Si tu ne mes rien, je ne peux pas savoir qui tu es ! 😖")
     else:
         return render_template('login.html')
     
@@ -52,6 +57,7 @@ def signup():
                         "role" : "guest"
                     })
                     session["user"] = request.form["user_id"]
+                    
                     return redirect(url_for("index"))
                 else:
                     return render_template('signup.html', erreur="Le nom d'utilisateur ou le mot de passe est vide.")
