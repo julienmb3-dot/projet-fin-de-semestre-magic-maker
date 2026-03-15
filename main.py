@@ -67,6 +67,11 @@ def signup():
     else:
         return render_template("signup.html")
 
+
+@app.route("/game")
+def game():
+    return render_template("game.html", game="game")
+
 """
 @app.route("/update_game", methods=["POST"])
 def update_game():

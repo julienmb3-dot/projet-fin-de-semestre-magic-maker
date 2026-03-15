@@ -1,0 +1,18 @@
+{% extends "front/base.html" %}
+{% block script %}
+    <!--{{ super() }}-->
+    <script defer src="static\script.js"></script>
+{% endblock %}
+
+{% block content %}
+    <main id="main">
+        <section>
+            <div class="">
+                <label id="score1234">score</label>
+            </div>
+            <div>
+                <a id="faireUneCuillèreBtn" class="select-none px-2 py-1 bg-[#9400C9] text-white rounded-lg transition-all duration-100 ease-in-out hover:bg-[#B55FFC] active:bg-[#675FFC]" type="button">Fabriquer une cuillère</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}
