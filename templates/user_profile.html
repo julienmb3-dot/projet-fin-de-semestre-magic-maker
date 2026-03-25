@@ -1,0 +1,16 @@
+{% extends "front/base.html" %}
+{% block content %}
+
+<h1> Profile de {{user["user_id"]}} </h1>
+
+<p class="ml-2 mx-2" > -{{data["user"]}}</p> 
+<p class="mx-2 font-semibold">{{data["time_played"]}}</p> 
+
+<!-- <img src="{{ user['avatar']}}" width = "100"-->
+{% if not admin %}
+    <a href="{{ url_for('index')}}">retour</a>
+{% else %}
+    <a href="{{ url_for('admin')}}">retour</a>
+{% endif %}
+
+{% endblock %}

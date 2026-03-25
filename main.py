@@ -1,7 +1,12 @@
 from flask import Flask, render_template, url_for, request, session, redirect
+
 from pymongo import MongoClient
+
 from dotenv import load_dotenv
+
 from werkzeug.utils import secure_filename
+
+from bson.objectid import ObjectId
 
 import os
 
@@ -105,7 +110,38 @@ def admin():
         return render_template("back/welcome.html", admin = "oui", users=users_find)
     else:
         data_find = list(db["data"].find())
-        return render_template(("index.html"), erreur = "tu n'est pas administrateur !", data=data_find)
+        return render_template("index.html", erreur = "tu n'est pas administrateur !", data=data_find)
+
+@app.route("/admin/update_role/<_id>", methods=["Post"])
+def update_role(_id):
+    if "user" in session and session["role"] == "admin":
+        new_role = request.form.get("role")
+
+        db["Users"].update_one(
+            {"_id" : ObjectId(_id)},
+            {"$set" : {"role" : new_role}}
+        )
+    
+    return redirect(url_for("admin"))
+
+@app.route("/admin/delete_user/<_id>")
+def delete_user(_id):
+    if "user" in session and session["role"] == "admin":
+        db["Users"].delete_one({"_id" : ObjectId(_id)})
+        db["data"].delete_one({"_id" : ObjectId(_id)})
+
+    return redirect(url_for("admin"))
+
+@app.route('/admin/user/<_id>')
+def show_user(_id):
+    if "user" in session and session["role"] == "admin":
+        user = db["Users"].find_one({"_id" : ObjectId(_id)})
+
+        if not user:
+            return redirect(url_for('admin'))
+            
+        return render_template('user_profile.html', user=user, admin = "oui", data=db["data"].find_one({"_id" : ObjectId(_id)}))
+    return redirect(url_for("admin"))
 
 @app.route("/logout")
 def logout():

@@ -8,17 +8,29 @@
                 <div class="bg-gradient-to-bl from-[#79A2BA] to-[#FFFFFF] text-wrap rounded-md drop-shadow-md/50 p-5 px-2">
                     <table class="table-auto">
                         <thead>
-                            <th class="text-xxl text-[#DAF6F2] font-semibold px-5 text-shadow-xl ">Identifiant</th>
-                            <th class="text-xxl text-[#DAF6F2] font-semibold px-5">statut</th>
+                            <th class="text-xxl text-[#DAF6F2] font-semibold px-5 drop-shadow-md/50 ">Identifiant</th>
+                            <th class="text-xxl text-[#DAF6F2] font-semibold px-5 drop-shadow-md/50">statut</th>
                         </thead>
                         <body>
                             {% for user in users %}
                                 <tr>
                                     <td class="text-[#0B202D] ml-2 mx-2">{{user["user_id"]}}</td>
                                     <td class="text-[#0B202D] ml-2 mx-2">{{user["role"]}}</td>
-                                    <td class="text-[#0B202D] pl-2 px-2"><a href="/">voir</a></td>
-                                    <td class="text-[#0B202D] pl-2 px-2"><a href="/">Modifier</a></td>
-                                    <td class="text-[#0B202D] pl-2 px-2"><a href="/">Supprimer</a></td>
+
+                                    <td>
+                                        <form action="{{ url_for('update_role', _id=user['_id']) }}" method="post">
+                                            <select name="role" onchange="this.form.submit()"> 
+                                                <option value="guest" {% if user['role'] == "guest" %} selected {% endif %}> guest</option>
+                                                <option value="admin" {% if user['role'] == "admin" %} selected {% endif %}> admin</option>
+                                        
+                                            </select>
+                                        </form>
+                                    </td>
+
+                                    <td class="text-[#0B202D] pl-2 px-2"><a href="{{ url_for('show_user', _id=user['_id'])}}">voir</a></td>
+
+                                    <td><a href="{{ url_for('delete_user', _id=user['_id'])}}" onclick="return confirm('Supprimer ce joueur ?')">Supprimer</a></td>
+
                                 </tr>
                             {% endfor %}
                         </body>
