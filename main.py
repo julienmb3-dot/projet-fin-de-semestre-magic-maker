@@ -112,6 +112,23 @@ def admin():
         data_find = list(db["data"].find())
         return render_template("index.html", erreur = "tu n'est pas administrateur !", data=data_find)
 
+@app.route("/admin/search", methods = ["GET"])
+def admin_search():
+    query = request.args.get("q", "").strip()
+
+    if query == "":
+        users_find = list(db["Users"].find())
+        return render_template("back/welcome.html", admin = "oui", users=users_find)
+    else:
+        results = list(db["Users"].find({
+            "$or" : [
+                {"user_id" : {"$regex" : query, "$options" : "i"}},
+                {"role" : {"$regex" : query, "$options" : "i"}}
+            ]
+        }))
+        print(results[0]["user_id"])
+    return render_template("back/welcome.html", admin = "oui", users=results, query=query)
+
 @app.route("/admin/update_role/<_id>", methods=["Post"])
 def update_role(_id):
     if "user" in session and session["role"] == "admin":

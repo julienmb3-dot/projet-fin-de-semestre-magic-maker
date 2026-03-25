@@ -3,7 +3,12 @@
     <main>
         <section class="flex flex-row justify-center items-center mb-3">
             <div>
-                <h1 class="text-3xl text-[#DAECF6] font-bold drop-shadow-md/20 py-4 text-center">Tous les joueurs</h1>
+                <form action="/admin/search" method="get" class="">
+                    <input type="text" name="q" placeholder="Chercher un compt" class="rounded-lg px-2 py-1">
+                    <button type="submit" class=""> 🔎</button>
+                </form>
+
+                <h1 class="text-3xl text-[#DAECF6] font-bold drop-shadow-md/20 py-4 text-center">Panneau des compts</h1>
 
                 <div class="bg-gradient-to-bl from-[#79A2BA] to-[#FFFFFF] text-wrap rounded-md drop-shadow-md/50 p-5 px-2">
                     <table class="table-auto">
@@ -12,6 +17,16 @@
                             <th class="text-xxl text-[#DAF6F2] font-semibold px-5 drop-shadow-md/50">statut</th>
                         </thead>
                         <body>
+                            
+                            {% if query%}
+                                {% if not users|length == 0 %}
+                                    <p>Voici les utilisateurs pour "{{query}}"</p>
+                                {% else %}
+                                    <p> Ancun utilisateur n'a été trouvé avec comme mot clef : "{{query}}"</p>
+                                {% endif %}
+                            {% endif %}
+
+                       
                             {% for user in users %}
                                 <tr>
                                     <td class="text-[#0B202D] ml-2 mx-2">{{user["user_id"]}}</td>
@@ -33,6 +48,7 @@
 
                                 </tr>
                             {% endfor %}
+
                         </body>
                     </table>
                 </div>
