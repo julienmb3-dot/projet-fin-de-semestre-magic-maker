@@ -2,9 +2,12 @@
 {% block content %}
 
 <h1> Profile de {{user["user_id"]}} </h1>
-
-<p class="ml-2 mx-2" > -{{data["user"]}}</p> 
-<p class="mx-2 font-semibold">{{data["time_played"]}}</p> 
+{% if data %}
+    <p class="ml-2 mx-2" > {{data["score"]}}</p> 
+    <p class="mx-2 font-semibold">{{data["time_played"]}}</p>
+{% else %}  
+    <p class="ml-2 mx-2" >- aucune données -</p> 
+{% endif %}
 
 <!-- <img src="{{ user['avatar']}}" width = "100"-->
 {% if not admin %}

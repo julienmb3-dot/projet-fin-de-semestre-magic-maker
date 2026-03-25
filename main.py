@@ -126,7 +126,6 @@ def admin_search():
                 {"role" : {"$regex" : query, "$options" : "i"}}
             ]
         }))
-        print(results[0]["user_id"])
     return render_template("back/welcome.html", admin = "oui", users=results, query=query)
 
 @app.route("/admin/update_role/<_id>", methods=["Post"])
@@ -149,15 +148,15 @@ def delete_user(_id):
 
     return redirect(url_for("admin"))
 
-@app.route('/admin/user/<_id>')
-def show_user(_id):
+@app.route('/admin/user/<_id>/<user_id_name>')
+def show_user(_id, user_id_name):
     if "user" in session and session["role"] == "admin":
         user = db["Users"].find_one({"_id" : ObjectId(_id)})
-
+        data = db["data"].find_one({"user_id" : user_id_name})
         if not user:
             return redirect(url_for('admin'))
             
-        return render_template('user_profile.html', user=user, admin = "oui", data=db["data"].find_one({"_id" : ObjectId(_id)}))
+        return render_template('user_profile.html', user=user, admin = "oui", data=data)
     return redirect(url_for("admin"))
 
 @app.route("/logout")

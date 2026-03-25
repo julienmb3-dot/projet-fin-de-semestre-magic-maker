@@ -3,36 +3,39 @@
     <main>
         <section class="flex flex-row justify-center items-center mb-3">
             <div>
-                <form action="/admin/search" method="get" class="">
-                    <input type="text" name="q" placeholder="Chercher un compt" class="rounded-lg px-2 py-1">
-                    <button type="submit" class=""> 🔎</button>
-                </form>
+   
+                <h1 class="text-3xl text-[#DAECF6] font-bold drop-shadow-md/20 py-4 text-center">Panneau des comptes</h1>
+                
+                <div class="bg-gradient-to-bl from-[#79A2BA] to-[#FFFFFF] text-wrap rounded-md drop-shadow-md/50 p-10 px-25">
 
-                <h1 class="text-3xl text-[#DAECF6] font-bold drop-shadow-md/20 py-4 text-center">Panneau des compts</h1>
+                    <form action="/admin/search" method="get" class="pb-5">
+                        <input type="text" name="q" placeholder="Chercher un compte" class="rounded-lg px-5 pb-2 text-2xl">
+                        <button type="submit" class="text-2xl">🔎</button>
+                    </form>
 
-                <div class="bg-gradient-to-bl from-[#79A2BA] to-[#FFFFFF] text-wrap rounded-md drop-shadow-md/50 p-5 px-2">
                     <table class="table-auto">
                         <thead>
-                            <th class="text-xxl text-[#DAF6F2] font-semibold px-5 drop-shadow-md/50 ">Identifiant</th>
-                            <th class="text-xxl text-[#DAF6F2] font-semibold px-5 drop-shadow-md/50">statut</th>
+                            {% if not users|length == 0 %}
+                                <th class="text-3xl text-[#DAF6F2] font-semibold px-5 drop-shadow-md/50 ">Identifiant</th>
+                                <th class="text-3xl text-[#DAF6F2] font-semibold px-5 drop-shadow-md/50">statut</th>
+                            {% endif %}
                         </thead>
                         <body>
                             
                             {% if query%}
                                 {% if not users|length == 0 %}
-                                    <p>Voici les utilisateurs pour "{{query}}"</p>
+                                    <p class="text-xl text-[#0B202D] pl-2 px-2 py-5">Voici les utilisateurs pour "{{query}}"</p>
                                 {% else %}
-                                    <p> Ancun utilisateur n'a été trouvé avec comme mot clef : "{{query}}"</p>
+                                    <p class="text-xl text-[#0B202D] pl-2 px-2 py-5"> Ancun utilisateur n'a été trouvé avec comme mot clef : "{{query}}"</p>
                                 {% endif %}
                             {% endif %}
 
                        
                             {% for user in users %}
                                 <tr>
-                                    <td class="text-[#0B202D] ml-2 mx-2">{{user["user_id"]}}</td>
-                                    <td class="text-[#0B202D] ml-2 mx-2">{{user["role"]}}</td>
+                                    <td class="text-3xl text-[#0B202D] ml-2 mx-2">{{user["user_id"]}}</td>
 
-                                    <td>
+                                    <td class="text-3xl text-[#0B202D] ml-2 mx-2">
                                         <form action="{{ url_for('update_role', _id=user['_id']) }}" method="post">
                                             <select name="role" onchange="this.form.submit()"> 
                                                 <option value="guest" {% if user['role'] == "guest" %} selected {% endif %}> guest</option>
@@ -41,10 +44,10 @@
                                             </select>
                                         </form>
                                     </td>
-
-                                    <td class="text-[#0B202D] pl-2 px-2"><a href="{{ url_for('show_user', _id=user['_id'])}}">voir</a></td>
-
-                                    <td><a href="{{ url_for('delete_user', _id=user['_id'])}}" onclick="return confirm('Supprimer ce joueur ?')">Supprimer</a></td>
+                                    <td class="text-3xl text-[#0B202D] px-4 pr-2 font-bold"><p>|</p></td>
+                                    <td class="text-3xl text-[#0B202D] pl-2 px-2"><a href="{{ url_for('show_user', _id=user['_id'], user_id_name=user['user_id']) }}">voir</a></td>
+                                    <td class="text-3xl text-[#79A2BA] pl-1 px-1"><p>-</p></td>
+                                    <td class="text-3xl text-[#0B202D] pl-2 px-2"><a href="{{ url_for('delete_user', _id=user['_id']) }}" onclick="return confirm('Supprimer ce joueur ?')">Supprimer</a></td>
 
                                 </tr>
                             {% endfor %}
