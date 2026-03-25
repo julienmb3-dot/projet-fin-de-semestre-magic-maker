@@ -1,0 +1,30 @@
+{% extends "front/base.html" %}
+{% block content %}
+    <main>
+        <section class="flex flex-row justify-center items-center mb-3">
+            <div>
+                <h1 class="text-3xl text-[#DAECF6] font-bold drop-shadow-md/20 py-4 text-center">Tous les joueurs</h1>
+
+                <div class="bg-gradient-to-bl from-[#79A2BA] to-[#FFFFFF] text-wrap rounded-md drop-shadow-md/50 p-5 px-2">
+                    <table class="table-auto">
+                        <thead>
+                            <th class="text-xxl text-[#DAF6F2] font-semibold px-5 text-shadow-xl ">Identifiant</th>
+                            <th class="text-xxl text-[#DAF6F2] font-semibold px-5">statut</th>
+                        </thead>
+                        <body>
+                            {% for user in users %}
+                                <tr>
+                                    <td class="text-[#0B202D] ml-2 mx-2">{{user["user_id"]}}</td>
+                                    <td class="text-[#0B202D] ml-2 mx-2">{{user["role"]}}</td>
+                                    <td class="text-[#0B202D] pl-2 px-2"><a href="/">voir</a></td>
+                                    <td class="text-[#0B202D] pl-2 px-2"><a href="/">Modifier</a></td>
+                                    <td class="text-[#0B202D] pl-2 px-2"><a href="/">Supprimer</a></td>
+                                </tr>
+                            {% endfor %}
+                        </body>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

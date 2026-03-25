@@ -31,7 +31,7 @@ def login():
             if user:
                 if request.form["password"] == user["password"]:
                     session["user"] = request.form["user_id"]
-                    session["role"] = "guest"
+                    session["role"] = user["role"]
                     return redirect(url_for("index"))
                 else:
                     return render_template('login.html', erreur="On dirait que t'as un 🕳️ de mémoire...")
@@ -97,6 +97,16 @@ def update_game():
     db["games_data"].insert_one(data)
     return redirect(url_for("play"))
 """
+
+@app.route("/admin")
+def admin():
+    if "user" in session and session["role"] == "admin":
+        users_find = list(db["Users"].find())
+        return render_template("back/welcome.html", admin = "oui", users=users_find)
+    else:
+        data_find = list(db["data"].find())
+        return render_template(("index.html"), erreur = "tu n'est pas administrateur !", data=data_find)
+
 @app.route("/logout")
 def logout():
     session.clear()
