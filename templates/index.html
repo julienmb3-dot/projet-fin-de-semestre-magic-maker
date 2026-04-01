@@ -15,9 +15,9 @@
                 
                 {% for data in data %}
                     <div class="flex items-stretch bg-[#BBB5FC] mx-1 my-2 rounded-lg">
-                        <p class="ml-2 mx-2" > -{{data["user"]}}</p> 
+                        <p class="ml-2 mx-2" ><a href="{{ url_for('common_show_user', user_id_name=data['user']) }}"> -{{data["user"]}}</a></p> 
                         
-                        <p class="mx-2 font-semibold">{{data["time_played"]}}</p> 
+                        <p class="mx-2 font-semibold">{{data["time_played"]}}s</p> 
                     </div>
                 {% endfor %}
             </div>
@@ -29,7 +29,7 @@
     
                 {% for data in data %}
                     <div class="flex items-stretch bg-[#BBB5FC] mx-1 my-2 rounded-lg">
-                        <p class="ml-2 mx-2" > -{{data["user"]}}</p> 
+                        <p class="ml-2 mx-2" ><a href="{{ url_for('common_show_user', user_id_name=data['user']) }}"> -{{data["user"]}}</a></p> 
                         
                         <p class="mx-2 font-semibold">{{data["score"]}}</p> 
                     </div>

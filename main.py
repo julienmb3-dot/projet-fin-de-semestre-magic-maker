@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, session, redirect
+from flask import Flask, render_template, url_for, request, session, redirect, jsonify
 
 from pymongo import MongoClient
 
@@ -63,7 +63,12 @@ def signup():
                         "role" : "guest"
                     })
                     session["user"] = request.form["user_id"]
-                    
+                    db_data = db["data"]
+                    db_data.insert_one({
+                        "user" : request.form["user_id"],
+                        "time_played" : "0",
+                        "score" : "0",
+                    })
                     return redirect(url_for("index"))
                 else:
                     return render_template('signup.html', erreur="Le nom d'utilisateur ou le mot de passe est vide.")
@@ -77,6 +82,25 @@ def signup():
 def game():
     return render_template("game.html", game="game")
 
+
+@app.route("/update_game", methods=["POST"])
+def update_game():
+    data_envoye = request.get_json()
+
+    score = data_envoye.get("score")
+    time_played = data_envoye.get("time_played")
+
+    db_data = db["data"]
+    old_data = db_data.find_one({"user" : session["user"]})
+    element_id = old_data["_id"]
+
+    db_data.replace_one(
+        {"_id" : element_id},
+        {"score" : score},
+        {"time_played" : time_played},
+    )
+
+    return redirect(url_for("game"))
 """
 @app.route("/update_game", methods=["POST"])
 def update_game():
@@ -148,16 +172,27 @@ def delete_user(_id):
 
     return redirect(url_for("admin"))
 
-@app.route('/admin/user/<_id>/<user_id_name>')
-def show_user(_id, user_id_name):
+@app.route('/admin/user/<user_id_name>')
+def show_user(user_id_name):
     if "user" in session and session["role"] == "admin":
-        user = db["Users"].find_one({"_id" : ObjectId(_id)})
-        data = db["data"].find_one({"user_id" : user_id_name})
+        user = db["Users"].find_one({"user_id" : user_id_name})
+        data = db["data"].find_one({"user" : user_id_name})
         if not user:
             return redirect(url_for('admin'))
             
         return render_template('user_profile.html', user=user, admin = "oui", data=data)
     return redirect(url_for("admin"))
+
+@app.route('/common/user/<user_id_name>')
+def common_show_user(user_id_name):
+    if "user" in session:
+        user = db["Users"].find_one({"user_id" : user_id_name})
+        data = db["data"].find_one({"user" : user_id_name})
+        if not user:
+            return redirect(url_for('index'))
+            
+        return render_template('user_profile.html', user=user, data=data)
+    return redirect(url_for("index"))
 
 @app.route("/logout")
 def logout():

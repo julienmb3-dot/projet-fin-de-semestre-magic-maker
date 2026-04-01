@@ -3,8 +3,8 @@
 
 <h1> Profile de {{user["user_id"]}} </h1>
 {% if data %}
-    <p class="ml-2 mx-2" > {{data["score"]}}</p> 
-    <p class="mx-2 font-semibold">{{data["time_played"]}}</p>
+    <p class="ml-2 mx-2" >nombre de cuillères fabriquées : {{data["score"]}}</p> 
+    <p class="mx-2">temps de jeu : {{data["time_played"]}}</p>
 {% else %}  
     <p class="ml-2 mx-2" >- aucune données -</p> 
 {% endif %}

@@ -45,7 +45,7 @@
                                         </form>
                                     </td>
                                     <td class="text-3xl text-[#0B202D] px-4 pr-2 font-bold"><p>|</p></td>
-                                    <td class="text-3xl text-[#0B202D] pl-2 px-2"><a href="{{ url_for('show_user', _id=user['_id'], user_id_name=user['user_id']) }}">voir</a></td>
+                                    <td class="text-3xl text-[#0B202D] pl-2 px-2"><a href="{{ url_for('show_user', user_id_name=user['user_id']) }}">voir</a></td>
                                     <td class="text-3xl text-[#79A2BA] pl-1 px-1"><p>-</p></td>
                                     <td class="text-3xl text-[#0B202D] pl-2 px-2"><a href="{{ url_for('delete_user', _id=user['_id']) }}" onclick="return confirm('Supprimer ce joueur ?')">Supprimer</a></td>
 
