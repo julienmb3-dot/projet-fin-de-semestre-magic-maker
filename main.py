@@ -95,11 +95,10 @@ def update_game():
     old_data = db["data"].find_one({"user" : session["user"]})
     
 
-    old_data.update_one(
-        {"score" : score},
-        {"time_played" : time_played},
-        {"level" : level},
-
+    db["data"].update_one(
+        {"user" : session["user"]},
+        {"$set" : {"score" : score, "time_played" : time_played, "level" : level}},
+        
         upsert = True
     )
 

@@ -2,9 +2,19 @@ let score = 0
 let time_played = 0
 let level = 0
 
+const defaultData = {"score" : 0, "time_played" : 0, "level" : 0}
+
 let scoreDispaly = document.getElementById("score1234");
 let cuillereBtn = document.getElementById("faireUneCuillèreBtn");
 
+function verifyJSON(json) {
+  try {
+    const data = JSON.parse(json);   // ← lève une exception si le texte n’est pas du JSON valide
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
 
 function updateScore() {
     scoreDispaly.textContent = score.toString();
@@ -23,25 +33,30 @@ function updateScore() {
 function reloadScore() {
     
     let data = fetch("/update_game", {method : "GET"}).then(Response => {
-        return JSON.parse(Response);
+        if (verifyJSON(Response)) {
+            return JSON.parse(Response);
+        } else {
+            return defaultData
+        }
     }, rejected => {
-        console.log(rejected.toString())
+        console.log(rejected.toString());
+        return defaultData
     })
-    console.log("time played = " + data.time_played.toString())
-    console.log("level = " + data.level.toString())
-    score = data.score 
-    time_played = data.time_played
-    level = data.level
-    scoreDispaly.textContent = score.toString();
+    console.log("time played = " + data.time_played);
+    console.log("level = " + data.level);
+    score = Number(data.score);
+    time_played = Number(data.time_played);
+    level = Number(data.level);
+    scoreDispaly.textContent = score;
     
 }
 
-scoreDispaly.textContent = score.toString();
+reloadScore();
 
 function addToScore(number) {
-    score = score + number
-    updateScore()
+    score = score + number;
+    updateScore();
 }
 
 
-cuillereBtn.addEventListener("click", () => addToScore(1))
+cuillereBtn.addEventListener("click", () => addToScore(1));
