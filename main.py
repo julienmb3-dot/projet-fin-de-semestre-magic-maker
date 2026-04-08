@@ -68,6 +68,7 @@ def signup():
                         "user" : request.form["user_id"],
                         "time_played" : "0",
                         "score" : "0",
+                        "level" : "0",
                     })
                     return redirect(url_for("index"))
                 else:
@@ -85,19 +86,21 @@ def game():
 
 @app.route("/update_game", methods=["POST"])
 def update_game():
-    data_envoye = request.get_json()
+    data_du_JSON = request.get_json()
 
-    score = data_envoye.get("score")
-    time_played = data_envoye.get("time_played")
+    score = data_du_JSON.get("score")
+    time_played = data_du_JSON.get("time_played")
+    level = data_du_JSON.get("level")
 
-    db_data = db["data"]
-    old_data = db_data.find_one({"user" : session["user"]})
-    element_id = old_data["_id"]
+    old_data = db["data"].find_one({"user" : session["user"]})
+    
 
-    db_data.replace_one(
-        {"_id" : element_id},
+    old_data.update_one(
         {"score" : score},
         {"time_played" : time_played},
+        {"level" : level},
+
+        upsert = True
     )
 
     return redirect(url_for("game"))
