@@ -21,6 +21,8 @@ app = Flask("Spoon Box Rush")
 
 app.secret_key = "lkna565s6c%!dhoahjd_d"
 
+TAGS = []
+
 @app.route("/")
 def index():
     data_find = list(db["data"].find())
@@ -46,21 +48,32 @@ def login():
             return render_template('login.html', erreur="Si tu ne mes rien, je ne peux pas savoir qui tu es ! 😖")
     else:
         return render_template('login.html')
+
+@app.route("/add_tag", methods = ["POST", "GET"])
+def add_tag():
     
+    if request.form["tag"] != "":
+        TAGS = request.form["tag"]
+
+    return render_template('signup.html', tags=TAGS, erreur="Le tag a été ajouté ! tags = " + str(TAGS))
+
 @app.route("/signup", methods = ["POST", "GET"])
 def signup():
     if request.method == "POST":
         db_users = db["Users"]
         new_user = db_users.find_one({"user_id" : request.form["user_id"]})
         if new_user:
-            return render_template('signup.html', erreur="Ce nom d'utilisateur est déjà pris.")
+            return render_template('signup.html', tags=TAGS, erreur="Ce nom d'utilisateur est déjà pris.")
         else:
             if request.form["password"] == request.form["password_confirmation"]:
                 if not(request.form["password"] == "" or request.form["user_id"] == ""):
+                    role = "guest"
+
                     db_users.insert_one({
                         "user_id" : request.form["user_id"],
                         "password" : request.form["password"],
-                        "role" : "guest"
+                        "role" : role,
+                        "tag" : TAGS
                     })
                     session["user"] = request.form["user_id"]
                     db_data = db["data"]
@@ -72,11 +85,12 @@ def signup():
                     })
                     return redirect(url_for("index"))
                 else:
-                    return render_template('signup.html', erreur="Le nom d'utilisateur ou le mot de passe est vide.")
+                    return render_template('signup.html', tags=TAGS, erreur="Le nom d'utilisateur ou le mot de passe est vide.")
             else:
-                return render_template('signup.html', erreur="Les deux mots de passe ne correspondent pas.")
+                return render_template('signup.html', tags=TAGS, erreur="Les deux mots de passe ne correspondent pas.")
     else:
-        return render_template("signup.html")
+        return render_template("signup.html", tags=TAGS)
+
 
 
 @app.route("/game")
@@ -127,6 +141,21 @@ def update_game():
     }
     db["games_data"].insert_one(data)
     return redirect(url_for("play"))
+
+    
+@app.route("truc/like/<truc_id>")
+def like_truc(truc_id):
+    if "util" not in session:
+        return redirect(url_for("login"))
+
+    user = session["util"]
+
+    truc = db["truc"].find_one("id" : ObjectId(pokemon_id))
+
+    if not truc:
+        return redirect(url_for(truc))
+    
+    
 """
 
 @app.route("/admin")

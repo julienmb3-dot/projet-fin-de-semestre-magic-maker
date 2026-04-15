@@ -10,6 +10,12 @@
     <p class="ml-2 mx-2" >- aucune données -</p> 
 {% endif %}
 
+<p>
+    {% for tag in user["tags"]%}
+        <span>#{{ tag }}</span>
+    {% endfor %}
+</p>
+
 <!-- <img src="{{ user['avatar']}}" width = "100"-->
 {% if not admin %}
     <a href="{{ url_for('index')}}">retour</a>

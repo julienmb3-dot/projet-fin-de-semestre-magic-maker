@@ -24,6 +24,23 @@
                         <input class="rounded-lg flex p-2 mr-4 bg-[#5FFCB5] text-[#6D60FB]" name="password_confirmation" type="text" placeholder="Remet-le pour être sûr">
                     </div>
 
+                    <div>
+                        <label>Choisis tes tags !</label>
+                        
+                        <div class="flex flex-warp gap-2">
+                            <input type="text" name="tag" placeholder="écrit ton tag..." class="">
+                            <a class="flex rounded-lg py-1 px-3 text-white font-semibold mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" id="tag_btn" href="{{ url_for('add_tag') }}">ajouter</a>
+                            {% for tag in tags %}
+                                <!-- 
+                                <input type="checkbox" id="{{tag}}" name="tags" value="{{ tag }}" class="">
+                                <label for="{{ tag }}" calss="">{{tag}}</label> 
+                                -->
+                                
+                                <label for="{{ tag }}" calss="">{{tag}}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
                     <div class="flex mt-4 justify-center-safe mb-3">
                         <button class="flex rounded-lg py-1 px-3 text-white font-semibold mx-2 bg-gradient-to-t from-[#B55FFC] to-[#675FFC]" id="signup" type="submit">Bienvenue ☺️ !</button>
                     </div>
